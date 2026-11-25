@@ -4,7 +4,7 @@ try{if(sessionStorage.rsVisto)H.classList.add('visto');sessionStorage.rsVisto=1}
 const io=new IntersectionObserver(L=>L.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
 if(!parado)$$('.manif p,.sec h2,.sec .tres,.sangra>div,.marca blockquote,.janela,.sel h2').forEach(x=>{x.classList.add('rv');io.observe(x)});
 // diafragma: acompanha a rolagem
-const D=$('.diaf');if(D){const pal=D.querySelector('.palco'),furo=D.querySelector('.furo'),fi=furo.querySelector('img'),lug=D.querySelector('.lugar'),L=[...D.querySelectorAll('.legs p')];
+const D=$('.diaf');if(D){const pal=D.querySelector('.palco'),furo=D.querySelector('.furo'),fi=furo.querySelector('img'),lug=D.querySelector('.lugar'),L=[...D.querySelectorAll('.legs span')];
  const FX=.5,FY=.395,lim=(a,b,v)=>Math.min(1,Math.max(0,(v-a)/(b-a))),suave=k=>k*k*(3-2*k);let cur=0,W,A,raf=0,ant=0;
  const alvo=()=>{const b=D.getBoundingClientRect();return lim(0,Math.max(1,b.height-A),-b.top)};
  const pinta=p=>{const k=suave(lim(.05,.92,p)),R0=Math.hypot(W,A)/2/.86,r=R0*Math.pow(1-k,1.3),g=k*1.9;
@@ -12,7 +12,7 @@ const D=$('.diaf');if(D){const pal=D.querySelector('.palco'),furo=D.querySelecto
   fi.style.transform=`translate(${cx-w*FX}px,${cy-w*pr*FY}px) scale(${w/W})`;
   furo.style.clipPath=k>=1?'polygon(0 0,0 0,0 0)':'polygon('+[...Array(6)].map((_,i)=>{const a=g+i*Math.PI/3;return (cx+r*Math.cos(a)).toFixed(1)+'px '+(cy+r*Math.sin(a)).toFixed(1)+'px'}).join(',')+')';
   lug.style.transform=`scale(${1.14-.14*k})`;
-  const o=[1-lim(.2,.3,p),lim(.32,.42,p)*(1-lim(.7,.78,p)),lim(.82,.9,p)];L.forEach((x,i)=>{x.style.opacity=o[i];x.style.transform=`translateY(${(1-o[i])*18}px)`})};
+  const o=[1,lim(.3,.44,p),lim(.66,.82,p)];L.forEach((x,i)=>{x.style.opacity=o[i];x.style.transform=`translateY(${(1-o[i])*18}px)`})};
  // aproxima aos poucos do ponto da rolagem, para a roda do mouse não dar trancos
  const anda=t=>{const dt=Math.min(60,t-(ant||t-16));ant=t;const a=alvo();cur+=(a-cur)*(1-Math.exp(-dt/110));if(Math.abs(a-cur)<.0004){cur=a;raf=0;ant=0}else raf=requestAnimationFrame(anda);pinta(cur)};
  const mede=()=>{W=pal.clientWidth;A=pal.clientHeight;cur=parado?.5:alvo();pinta(cur)};
