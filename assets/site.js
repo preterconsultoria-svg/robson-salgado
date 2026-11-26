@@ -3,7 +3,7 @@ function nomes(){return [...document.querySelectorAll('.cat input:checked')].map
 // catálogo: a seleção vai pronta para o WhatsApp
 const sel=document.querySelector('.sel');
 if(sel){const up=()=>{const n=nomes();sel.hidden=!n.length;sel.querySelector('p').textContent=n.length?(n.length>1?n.length+' obras escolhidas: ':'1 obra escolhida: ')+n.join(', '):'Escolha as obras de que gostou';
- const u='https://wa.me/'+RS.whatsapp+'?text='+encodeURIComponent(n.length?'Olá, Robson! Vim pelo seu site e escolhi estas obras no catálogo: '+n.join(', ')+'. Pode me passar tamanhos e valores?':'Olá, Robson! Vim pelo seu site e quero saber mais sobre as obras fine art.');
+ const u='https://wa.me/'+RS.whatsapp+'?text='+encodeURIComponent(n.length?'Olá, Robson! Vim pelo seu site e quero um orçamento de fotografia. Escolhi estas obras no catálogo: '+n.join(', ')+'.':'Olá, Robson! Vim pelo seu site e quero um orçamento de fotografia.');
  sel.querySelector('a').href=u;document.querySelector('.fim .bt').href=u};
  document.querySelectorAll('.cat input').forEach(i=>i.addEventListener('change',up));up()}
 // capa: troca a cada 4 segundos, pausa com o mouse ou o foco em cima
